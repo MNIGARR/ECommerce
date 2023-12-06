@@ -1,0 +1,64 @@
+﻿@model ProductListViewModel
+
+
+<a class="btn btn-outline-success" href="/product/SortByLetter?hasSortClicked=@Model.hasSortingClicked&page=@Model.CurrentPage&category=@Model.CurrentCategory">
+    @if (Model.hasSortingClicked)
+    {
+        <div>A - Z</div>
+    }
+    else
+    {
+        <div>Z - A</div>
+    }
+</a>
+<a class="btn btn-outline-success" href="/product/SortByPrice?hasPriceSortClicked=@Model.hasSortingPriceClicked&page=@Model.CurrentPage&category=@Model.CurrentCategory">
+
+    @if (Model.hasSortingPriceClicked)
+    {
+        <div>Lower to Higher</div>
+    }
+    else
+    {
+        <div>Higher to Lower</div>
+    }
+</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th> ProductName</th>
+            <th>UnitPrice</th>
+            <th>UnitsInStock</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Products)
+        {
+            <tr>
+                <td>
+                    @item.ProductName
+                </td>
+                <td>
+                    @item.UnitPrice
+                </td>
+                <td>
+                    @item.UnitsInStock
+                </td>
+                <td>
+                    <a class="btn btn-xs btn-success"
+                    href="/Cart/AddToCart?productId=@item.ProductId&page=@Model.CurrentPage&category=@Model.CurrentCategory"
+                    >Add To Cart</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<product-list-pager current-category="@Model.CurrentCategory"
+  current-page="@Model.CurrentPage"
+  page-count="@Model.PageCount"
+  page-size="@Model.PageSize"
+
+>
+
+</product-list-pager>
